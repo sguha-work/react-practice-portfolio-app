@@ -1,17 +1,23 @@
+import MenuData from "../../data/menu";
 function Menu() {
+    console.log(MenuData);
     return (
         <nav id="colorlib-main-menu" role="navigation" className="navbar">
             <div id="navbar" className="collapse">
                 <ul>
-                    <li className="active"><a href="#" data-nav-section="home">Home</a></li>
-                    <li><a href="#" data-nav-section="about">About</a></li>
-                    <li><a href="#" data-nav-section="services">Services</a></li>
-                    <li><a href="#" data-nav-section="skills">Skills</a></li>
-                    <li><a href="#" data-nav-section="education">Education</a></li>
-                    <li><a href="#" data-nav-section="experience">Experience</a></li>
-                    <li><a href="#" data-nav-section="work">Work</a></li>
-                    <li><a href="#" data-nav-section="blog">Blog</a></li>
-                    <li><a href="#" data-nav-section="contact">Contact</a></li>
+                    {
+                        MenuData.map((data, index) => {
+                            if (index === 0) {
+                                return (
+                                    <li className="active"><a href="#" data-nav-section={data.dataNavSection}>{data.name}</a></li>
+                                );
+                            } else {
+                                return (
+                                    <li><a href="#" data-nav-section={data.dataNavSection}>{data.name}</a></li>
+                                );
+                            }
+                        })
+                    }
                 </ul>
             </div>
         </nav>
