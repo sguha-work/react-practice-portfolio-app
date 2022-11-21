@@ -287,9 +287,7 @@
 			]
 		})
 	};
-
-	// Document on load.
-	window.addEventListener('load', ()=>{
+	window.initiateJS = ()=>{
 		fullHeight();
 		counter();
 		counterWayPoint();
@@ -297,13 +295,17 @@
 		burgerMenu();
 
 		clickMenu();
-		 navActive();
+		navActive();
 		navigationSection();
 		// windowScroll();
 		mobileMenuOutsideClick();
 		sliderMain();
 		stickyFunction();
 		owlCrouselFeatureSlide();
+	};
+	// Document on load.
+	window.addEventListener('load', () => {
+		window.initiateJS();
 	});
 
 
