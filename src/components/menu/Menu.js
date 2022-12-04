@@ -3,21 +3,26 @@ import MenuData from "../../data/menu";
 import MenuService from "../../services/MenuService";
 import CommonService from "../../services/CommonService";
 function Menu() {
-    const [menus, setMenus] = useState([]);
+    const initialData = [
+        {id: '1', dataNavSection: 'menu1', name: 'Menu1'},
+        {id: '2', dataNavSection: 'menu2', name: 'Menu2'},
+    ];
+    //'menus' variable will hold the menu data, setMenus method will be called to update menu data
+    const [menus, setMenus] = useState(initialData);
     const common = CommonService.getInstance();
-    useEffect(() => {
-        (async () => {
-            const menuService = MenuService.getInstance();
-            let menu = await menuService.getMenu();
-            console.log('menu', menu);
-            setMenus(menu);
-            window.setTimeout(()=>{
-                
-            },1000);
-            
-        })();
-    }, []);
+    const menuServiceInstance = MenuService.getInstance();
     useEffect(()=>{
+        menuServiceInstance.getMenusFromFB().then((data) => {
+            console.log('menu data', data);
+            setMenus(data);
+            
+        }).catch((error) => {
+            console.log('menu data error', error);
+        });
+    },[]);
+
+    // this section is required to run the bootstrap menu initialization method after the data is received from Firebase and menu repopulated
+    useEffect(()=>{console.log('menu initialized')
         common.runGlobalScript();
     });
     return (
@@ -36,7 +41,7 @@ function Menu() {
                                 );
                             }
                         })
-                    }
+                    } 
                 </ul>
             </div>
         </nav>
